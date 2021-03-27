@@ -1,5 +1,10 @@
 module Entropia
 
-# Write your package code here.
+include("funciones.jl")
 
-end
+export bandt_and_pompe
+export bandt_and_pompe_normal
+export weight_entropy
+export renyi_entropy
+
+end # module
