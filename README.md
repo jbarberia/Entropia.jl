@@ -13,7 +13,7 @@ En el terminal de julia se corre los siguientes comandos:
 
 ```julia
 using Pkg
-Pkg.add("https://github.com/jbarberia/Entropia.jl")
+Pkg.add("url=https://github.com/jbarberia/Entropia.jl")
 ```
 
 # Uso:
