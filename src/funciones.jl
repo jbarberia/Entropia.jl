@@ -65,10 +65,29 @@ function bandt_and_pompe_normal(x::Array, m=3::Int, t=1::Int)
 end
 
 
-function  renyi_entropy(x::Array, q=1.::Float, m=3::Int, t=1::Int)
+function renyi_entropy(x::Array, q=1.::Float, m=3::Int, t=1::Int)
     if q == 1
         return bandt_and_pompe(x, m, t)
     end
     y = ordinal_patterns(x, m, t)
     log2(sum(x^q for x in y)) / (1-q) 
 end
+
+function complexity_entropy(x::Array, m=3::Int, t=1::Int)
+    n = factorial(m)
+    op = ordinal_patterns(x, m, t)
+    h1 = -sum(x * log(x) for x in op)
+
+    Q = -1 / (
+        (0.5+0.5/n)*log(0.5+(0.5/n)) +
+        (0.5/n)*log(0.5/n)*(n-1) +
+        0.5*log(n)
+    )
+    op2 = vcat(0.5.*op .+ 0.5/n, [0.5/n for i in 1:(n - length(op))])
+    h2 = -sum(x * log(x) for x in op2)
+
+    JSD = h2 .- 0.5.*h1 .- 0.5*log(n)
+    comp_JS = Q * JSD * h1/log(n)
+
+    a = [h1/log(n), JSD, comp_JS]
+end    

@@ -41,3 +41,13 @@ end
         @test abs(e - 0.9801) <= tol
     end
 end
+
+@testset "complexity_entropy" begin
+    @testset "test 00" begin
+        x = [4, 7, 9, 10, 6, 11, 3]
+        e, jsd, cjs = complexity_entropy(x)
+        @test abs(e - 0.5888) <= tol
+        @test abs(jsd - 0.2235) <= tol
+        @test abs(cjs - 0.2900) <= tol
+    end
+end
